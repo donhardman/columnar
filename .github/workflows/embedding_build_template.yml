@@ -116,7 +116,7 @@ jobs:
           command: build
           args: ${{ steps.params.outputs.args }}
       - run: | 
-          ls -lt target/*/*.so
+          ls -lt ./embeddings/target/*/*/*.so
 
       - name: Upload build artifacts
         if: success()
