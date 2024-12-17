@@ -13,10 +13,6 @@ on:
       arch:
         required: true
         type: string
-      image:
-        required: false
-        type: string
-        default: ""
       artifact_list:
         required: false
         type: string
@@ -33,8 +29,6 @@ jobs:
       run:
         shell: bash
     timeout-minutes: 30
-    container:
-      image: ${{ inputs.image }}
     steps:
       - name: Setup
         if: ${{ inputs.setup }}
