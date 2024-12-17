@@ -40,13 +40,13 @@ jobs:
         id: vars
         run: |
           declare -A dist_map=(
-            [bionic]="unknown-linux-gnu.ubuntu-bionic"
-            [focal]="unknown-linux-gnu.ubuntu-focal"
-            [jammy]="unknown-linux-gnu.ubuntu-jammy"
-            [buster]="unknown-linux-gnu.debian-buster"
-            [bullseye]="unknown-linux-gnu.debian-bullseye"
-            [bookworm]="unknown-linux-gnu.debian-bookworm"
-            [rhel7]="unknown-linux-gnu.centos-7"
+            [bionic]="unknown-linux-gnu"
+            [focal]="unknown-linux-gnu"
+            [jammy]="unknown-linux-gnu"
+            [buster]="unknown-linux-gnu"
+            [bullseye]="unknown-linux-gnu"
+            [bookworm]="unknown-linux-gnu"
+            [rhel7]="unknown-linux-gnu"
             [rhel8]="unknown-linux-gnu"
             [rhel9]="unknown-linux-gnu"
             [macos]="apple-darwin-gcc"
@@ -71,7 +71,7 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: --target ${{ steps.vars.outputs.target }} --release --manifest-path ./embeddings/Cargo.toml
+          args: --target ${{ steps.vars.outputs.target }} --release --manifest-path ./embeddings/Cargo.toml --image ${{ inputs.dist }}
       - run: | 
           ls -lt target/*/*.so
 
