@@ -93,7 +93,7 @@ jobs:
           )
           if [[ -n "${{ steps.vars.outputs.image }}" ]]; then
             cross_config="./embeddings/Cross.toml"
-            echo "[${{ steps.vars.outputs.target }}]" >> $cross_config
+            echo "[target.${{ steps.vars.outputs.target }}]" >> $cross_config
             echo "image='${{ steps.vars.outputs.image }}'" >> $cross_config
           fi
           echo "args=${args[@]}" >> $GITHUB_OUTPUT
