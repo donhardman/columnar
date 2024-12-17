@@ -116,11 +116,13 @@ jobs:
           command: build
           args: ${{ steps.params.outputs.args }}
       - run: | 
-          ls -lt ./embeddings/target/*/*/*.so
+          mkdir build
+          ls -lt ./embeddings/target/*/*/libmanticoresearch*.so
+          mv ./embeddings/target/*/*/libmanticoresearch*.so ./build
 
       - name: Upload build artifacts
         if: success()
         uses: manticoresoftware/upload_artifact_with_retries@v2
         with:
           name: build_${{ inputs.distr }}_${{ inputs.CTEST_CONFIGURATION_TYPE }}_${{ inputs.arch }}
-          path: ${{ inputs.artifact_list }}
+          path: ./build/*
