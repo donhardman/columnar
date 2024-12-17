@@ -30,7 +30,7 @@ jobs:
     name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
     with:
       runner: ubuntu-22.04
-      image: ubuntu:22.04
+      image: ubuntu
       distr: ${{ matrix.distr }}
       arch: ${{ matrix.arch }}
       setup: |
