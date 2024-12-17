@@ -80,12 +80,21 @@ jobs:
           toolchain: stable
           target: ${{ steps.vars.outputs.target }}
           override: true
+      - name: Prepare build args
+        id: params
+        run: |
+          args=("--target", "${{ steps.vars.outputs.target }}", "--release", "--manifest-path", "./embeddings/Cargo.toml")
+          if [[ -n "${{ steps.vars.outputs.image }}" ]]; then
+            args+=("--image", "${{ steps.vars.outputs.image }}")
+          fi
+          echo "${args[@]}" >> $GITHUB_OUTPUT
+
       - name: Build
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
-          args: --target ${{ steps.vars.outputs.target }} --release --manifest-path ./embeddings/Cargo.toml --image {{ $steps.vars.outputs.image }}
+          args: ${{ steps.params.outputs.args }}
       - run: | 
           ls -lt target/*/*.so
 
