@@ -12,5 +12,8 @@ pre-build = [
 	"yum update -y",
 	"yum groupinstall -y 'Development Tools'",
 	"yum install openssl-devel -y",
+	"yum install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu -y",
 ]
+xargo = false
+linker = "aarch64-linux-gnu-gcc"
 

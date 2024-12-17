@@ -10,5 +10,8 @@ image = "${CROSS_IMAGE}"
 pre-build = [
 	"apt-get update -y",
 	"apt-get install -y build-essential pkg-config libssl-dev ca-certificates",
+	"apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu",
 ]
+xargo = false
+linker = "aarch64-linux-gnu-gcc"
 
