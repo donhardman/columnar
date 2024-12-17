@@ -41,7 +41,8 @@ jobs:
         arch: [x86_64, aarch64]
     name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
     with:
-      image: ubuntu-22.04
+      runner: ubuntu-22.04
+      image: ubuntu:22.04
       distr: ${{ matrix.distr }}
       arch: ${{ matrix.arch }}
 

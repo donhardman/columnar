@@ -7,12 +7,16 @@ on:
         required: false
         type: string
         default: "ubuntu-22.04"
+      distr:
+        required: true
+        type: string
       arch:
         required: true
         type: string
       image:
-        required: true
+        required: false
         type: string
+        default: ""
       artifact_list:
         required: false
         type: string
