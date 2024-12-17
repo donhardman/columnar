@@ -87,7 +87,7 @@ jobs:
           if [[ -n "${{ steps.vars.outputs.image }}" ]]; then
             args+=("--image", "${{ steps.vars.outputs.image }}")
           fi
-          echo "${args[*]}" >> $GITHUB_OUTPUT
+          echo "args=${args[@]}" >> $GITHUB_OUTPUT
 
       - name: Build
         uses: actions-rs/cargo@v1
