@@ -67,6 +67,8 @@ jobs:
           fi
 
       - uses: actions/checkout@v3
+        with:
+        ref: ${{ github.ref }}
       - run: |
           cd columnar/embeddings
       - uses: actions-rs/toolchain@v1
