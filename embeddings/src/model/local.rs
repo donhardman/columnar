@@ -4,9 +4,10 @@ use candle_transformers::models::bert::{BertModel, Config, HiddenAct, DTYPE};
 use anyhow::Result;
 use candle_core::{Device, Tensor};
 use candle_nn::VarBuilder;
-use hf_hub::{api::sync::ApiBuilder, Repo, RepoType};
+use hf_hub::{api::tokio::ApiBuilder, Repo, RepoType};
 use tokenizers::{DecoderWrapper, ModelWrapper, NormalizerWrapper, PostProcessorWrapper, PreTokenizerWrapper, Tokenizer, TokenizerImpl};
 use std::path::PathBuf;
+use tokio::runtime::Runtime;
 
 use crate::utils::{get_max_input_length, get_hidden_size, normalize, chunk_input_tokens, get_mean_vector};
 
@@ -26,13 +27,13 @@ fn build_model_info(
 	let repo = Repo::with_revision(model_id.to_string(), RepoType::Model, revision.to_string());
 	let api = ApiBuilder::new().with_cache_dir(cache_path).build().map_err(|_| LibError::HuggingFaceApiBuildFailed)?;
 	let api = api.repo(repo);
-
-	let config_path = api.get("config.json").map_err(|_| LibError::ModelConfigFetchFailed)?;
-	let tokenizer_path = api.get("tokenizer.json").map_err(|_| LibError::ModelTokenizerFetchFailed)?;
+	let runtime = Runtime::new().unwrap();
+	let config_path = runtime.block_on(api.get("config.json")).map_err(|_| LibError::ModelConfigFetchFailed)?;
+	let tokenizer_path = runtime.block_on(api.get("tokenizer.json")).map_err(|_| LibError::ModelTokenizerFetchFailed)?;
 	let weights_path = if use_pth {
-		api.get("pytorch_model.bin").map_err(|_| LibError::ModelWeightsFetchFailed)?
+		runtime.block_on(api.get("pytorch_model.bin")).map_err(|_| LibError::ModelWeightsFetchFailed)?
 	} else {
-		api.get("model.safetensors").map_err(|_| LibError::ModelWeightsFetchFailed)?
+		runtime.block_on(api.get("model.safetensors")).map_err(|_| LibError::ModelWeightsFetchFailed)?
 	};
 	Ok(ModelInfo{
 		config_path,
