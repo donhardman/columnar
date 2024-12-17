@@ -32,7 +32,4 @@ jobs:
       runner: ubuntu-22.04
       distr: ${{ matrix.distr }}
       arch: ${{ matrix.arch }}
-      setup: |
-        apt-get update -y
-        apt-get install -y curl build-essential
 
