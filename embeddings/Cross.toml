@@ -1,7 +1,7 @@
-[target.x86_64-unknown-linux-gnu.jammy]
+[target.'x86_64-unknown-linux-gnu.jammy']
 image = "ubuntu:jammy"
 
-[target.aarch64-unknown-linux-gnu.jammy]
+[target.'aarch64-unknown-linux-gnu.jammy']
 image = "ubuntu:jammy"
 
 [target.x86_64-unknown-linux-gnu.focal]
@@ -9,4 +9,46 @@ image = "ubuntu:focal"
 
 [target.aarch64-unknown-linux-gnu.focal]
 image = "ubuntu:focal"
+
+[target.x86_64-unknown-linux-gnu.bionic]
+image = "ubuntu:bionic"
+
+[target.aarch64-unknown-linux-gnu.bionic]
+image = "ubuntu:bionic"
+
+[target.x86_64-unknown-linux-gnu.buster]
+image = "ubuntu:buster"
+
+[target.aarch64-unknown-linux-gnu.buster]
+image = "ubuntu:buster"
+
+[target.x86_64-unknown-linux-gnu.stretch]
+image = "debian:stretch"
+
+[target.aarch64-unknown-linux-gnu.stretch]
+image = "debian:stretch"
+
+[target.x86_64-unknown-linux-gnu.jessie]
+image = "debian:jessie"
+
+[target.aarch64-unknown-linux-gnu.jessie]
+image = "debian:jessie"
+
+[target.x86_64-unknown-linux-gnu.rhel7]
+image = "centos:7"
+
+[target.aarch64-unknown-linux-gnu.rhel7]
+image = "centos:7"
+
+[target.x86_64-unknown-linux-gnu.rhel8]
+image = "centos:8"
+
+[target.aarch64-unknown-linux-gnu.rhel8]
+image = "centos:8"
+
+[target.x86_64-unknown-linux-gnu.rhel9]
+image = "oraclelinux:9"
+
+[target.aarch64-unknown-linux-gnu.rhel9]
+image = "oraclelinux:9"
 
