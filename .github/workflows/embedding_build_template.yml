@@ -21,6 +21,10 @@ on:
         required: false
         type: string
         default: "target/release/lib*.so"
+      setup:
+        required: false
+        type: string
+        default: ""
 
 jobs:
   build:
@@ -32,6 +36,12 @@ jobs:
     container:
       image: ${{ inputs.image }}
     steps:
+      - name: Setup
+        if: ${{ inputs.setup }}
+        run: |
+          ${{ inputs.setup }}
+        shell: bash
+
       - name: Check distribution type
         id: vars
         run: |
