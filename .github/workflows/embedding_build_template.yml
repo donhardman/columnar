@@ -39,10 +39,24 @@ jobs:
       - name: Check distribution type
         id: vars
         run: |
-          declare -A dist_map=(
+          declare -A image_map=(
+            [bionic]="ubuntu:bionic"
+            [focal]="ubuntu:focal"
+            [jammy]="ubuntu:jammy"
+            [buster]="debian:buster"
+            [bullseye]="debian:bullseye"
+            [bookworm]="debian:bookworm"
+            [rhel7]="centos:7"
+            [rhel8]="centos:8"
+            [rhel9]="oraclelinux:9"
+          )
+          
+          echo "image=${image_map[${{ inputs.distr }}]}" >> $GITHUB_OUTPUT
+
+          declare -A target_map=(
             [bionic]="unknown-linux-gnu"
             [focal]="unknown-linux-gnu"
-            [jammy]="unknown-linux-gnu.jammy"
+            [jammy]="unknown-linux-gnu"
             [buster]="unknown-linux-gnu"
             [bullseye]="unknown-linux-gnu"
             [bookworm]="unknown-linux-gnu"
@@ -53,8 +67,8 @@ jobs:
             [windows]="pc-windows-msvc"
           )
 
-          if [[ -n "${dist_map[${{ inputs.distr }}]}" ]]; then
-            echo "target=${{ inputs.arch }}-${dist_map[${{ inputs.distr }}]}" >> $GITHUB_OUTPUT
+          if [[ -n "${target_map[${{ inputs.distr }}]}" ]]; then
+            echo "target=${{ inputs.arch }}-${target_map[${{ inputs.distr }}]}" >> $GITHUB_OUTPUT
           else
             echo "Unsupported distribution type: ${{ inputs.distr }}"
             exit 1
@@ -71,7 +85,7 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: --target ${{ steps.vars.outputs.target }} --release --manifest-path ./embeddings/Cargo.toml 
+          args: --target ${{ steps.vars.outputs.target }} --release --manifest-path ./embeddings/Cargo.toml --image {{ $steps.vars.outputs.image }}
       - run: | 
           ls -lt target/*/*.so
 
