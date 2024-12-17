@@ -83,9 +83,18 @@ jobs:
       - name: Prepare build args
         id: params
         run: |
-          args=("--target" "${{ steps.vars.outputs.target }}" "--release" "--manifest-path" "./embeddings/Cargo.toml")
+          args=(
+            "--target" 
+            "${{ steps.vars.outputs.target }}" 
+            "--lib"
+            "--release" 
+            "--manifest-path" 
+            "./embeddings/Cargo.toml"
+          )
           if [[ -n "${{ steps.vars.outputs.image }}" ]]; then
-            args+=("--image" "${{ steps.vars.outputs.image }}")
+            cross_config="./embeddings/Cross.toml"
+            echo "[${{ steps.vars.outputs.target }}]" >> $cross_config
+            echo "image=${{ steps.vars.outputs.image }}" >> $cross_config
           fi
           echo "args=${args[@]}" >> $GITHUB_OUTPUT
 
