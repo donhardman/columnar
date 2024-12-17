@@ -39,6 +39,21 @@ jobs:
       - name: Check distribution type
         id: vars
         run: |
+          declare -A image_map=(
+            [bionic]="ubuntu:bionic"
+            [focal]="ubuntu:focal"
+            [jammy]="ubuntu:jammy"
+            [buster]="debian:buster"
+            [bullseye]="debian:bullseye"
+            [bookworm]="debian:bookworm"
+            [rhel7]="oraclelinux:7"
+            [rhel8]="oraclelinux:8"
+            [rhel8]="oraclelinux:9"
+          )
+
+          image=${image_map[${{ inputs.distr }}]}
+          echo "image=${image}" >> $GITHUB_OUTPUT
+
           declare -A target_map=(
             [bionic]="unknown-linux-gnu"
             [focal]="unknown-linux-gnu"
@@ -78,6 +93,21 @@ jobs:
             "./embeddings/Cargo.toml"
           )
           echo "args=${args[@]}" >> $GITHUB_OUTPUT
+
+          platform=debian
+          if [[ "${{ inputs.distr }}" =~ rhel.* ]]; then
+            platform=rhel
+          elif [[ "${{ inputs.distr }}" =~ macos.* ]]; then
+            platform=macos
+          elif [[ "${{ inputs.distr }}" =~ windows.* ]]; then
+            platform=windows
+          fi
+
+          cross_template="./embeddings/Cross.toml.${platform}"
+          if [[ -f $cross_template ]]; then
+            export CROSS_TARGET="${{ steps.vars.outputs.image }}"
+            envsubst < $cross_template > "./embeddings/Cross.toml"
+          fi
 
       - name: Build
         uses: actions-rs/cargo@v1

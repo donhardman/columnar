@@ -1,5 +1,5 @@
 [target.'x86_64-unknown-linux-gnu']
-image = "oraclelinux:8"
+image = "${CROSS_IMAGE}"
 pre-build = [
 	"yum update -y",
 	"yum groupinstall -y 'Development Tools'",
@@ -7,9 +7,10 @@ pre-build = [
 ]
 
 [target.'aarch64-unknown-linux-gnu']
-image = "oraclelinux:7"
+image = "${CROSS_IMAGE}"
 pre-build = [
 	"yum update -y",
 	"yum groupinstall -y 'Development Tools'",
 	"yum install openssl-devel -y",
 ]
+
