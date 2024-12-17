@@ -20,16 +20,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
-  pack:
-    name: OK to pack?
-    runs-on: ubuntu-22.04
-    steps:
-      - run: echo "All set to build packages"
-
   embedding_pack:
     uses: ./.github/workflows/embedding_build_template.yml
-    needs: pack
     strategy:
       fail-fast: false
       matrix:
