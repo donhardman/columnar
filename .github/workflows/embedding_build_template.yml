@@ -105,7 +105,7 @@ jobs:
 
           cross_template="./embeddings/Cross.toml.${platform}"
           if [[ -f $cross_template ]]; then
-            export CROSS_TARGET="${{ steps.vars.outputs.image }}"
+            export CROSS_IMAGE="${{ steps.vars.outputs.image }}"
             envsubst < $cross_template > "./embeddings/Cross.toml"
           fi
 
