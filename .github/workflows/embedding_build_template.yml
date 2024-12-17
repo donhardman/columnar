@@ -78,6 +78,8 @@ jobs:
           command: build
           args: --target ${{ steps.vars.outputs.target }} --release
           working-directory: ./embeddings
+      - run: | 
+          ls -lt target/*/*.so
 
       - name: Upload build artifacts
         if: success()
