@@ -72,12 +72,12 @@ jobs:
           toolchain: stable
           target: ${{ steps.vars.outputs.target }}
           override: true
-      - uses: actions-rs/cargo@v1
+      - name: Build
+        uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
-          args: --target ${{ steps.vars.outputs.target }} --release
-          working-directory: ./embeddings
+          args: --target ${{ steps.vars.outputs.target }} --release --manifest-path ./embedding/Cargo.toml
       - run: | 
           ls -lt target/*/*.so
 
