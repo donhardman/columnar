@@ -3,7 +3,6 @@ image = "${CROSS_IMAGE}"
 pre-build = [
 	"yum update -y",
 	"yum groupinstall -y 'Development Tools'",
-	"yum install perl -y",
 ]
 
 [target.'aarch64-unknown-linux-gnu']
@@ -11,9 +10,7 @@ image = "${CROSS_IMAGE}"
 pre-build = [
 	"yum update -y",
 	"yum groupinstall -y 'Development Tools'",
-	"yum install perl -y",
-	"yum install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu -g++aarch64-linux-gnu -y",
-    \
+	"yum install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu g++aarch64-linux-gnu -y",
 ]
 xargo = false
 linker = "aarch64-linux-gnu-gcc"
