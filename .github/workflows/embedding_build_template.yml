@@ -111,11 +111,10 @@ jobs:
 
       - name: Build
         uses: actions-rs/cargo@v1
-        if: ${{ inputs.arch == 'aarch64' }}
         env:
-          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
-          CC_aarch64_unknown_linux_gnu: aarch64-linux-gnu-gcc
-          CXX_aarch64_unknown_linux_gnu: aarch64-linux-gnu-g++
+          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: ${{ inputs.arch == 'aarch64' && 'aarch64-linux-gnu-gcc' || ''}}
+          CC_aarch64_unknown_linux_gnu: ${{ inputs.arch == 'aarch64' && 'aarch64-linux-gnu-gcc' || ''}}
+          CXX_aarch64_unknown_linux_gnu: ${{ inputs.arch == 'aarch64' && 'aarch64-linux-gnu-g++' || ''}}
         with:
           use-cross: true
           command: build
