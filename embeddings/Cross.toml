@@ -1,6 +1,12 @@
-[target.x86_64-unknown-linux-gnu]
-image = { jammy = "ubuntu:jammy", focal = "ubuntu:focal" }
+[target.x86_64-unknown-linux-gnu.jammy]
+image = "ubuntu:jammy"
 
-[target.aarch64-unknown-linux-gnu]
-image = { jammy = "ubuntu:jammy", focal = "ubuntu:focal" }
+[target.aarch64-unknown-linux-gnu.jammy]
+image = "ubuntu:jammy"
+
+[target.x86_64-unknown-linux-gnu.focal]
+image = "ubuntu:focal"
+
+[target.aarch64-unknown-linux-gnu.focal]
+image = "ubuntu:focal"
 

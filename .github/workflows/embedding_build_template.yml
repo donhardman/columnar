@@ -71,7 +71,7 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: --target ${{ steps.vars.outputs.target }} --release --manifest-path ./embeddings/Cargo.toml --image ${{ inputs.dist }}
+          args: --target ${{ steps.vars.outputs.target }} --release --manifest-path ./embeddings/Cargo.toml --config ${{ inputs.dist }}
       - run: | 
           ls -lt target/*/*.so
 
