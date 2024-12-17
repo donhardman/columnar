@@ -1489,6 +1489,7 @@ dependencies = [
  "candle-transformers",
  "cbindgen",
  "hf-hub",
+ "openssl",
  "openssl-sys",
  "rand",
  "rayon",
