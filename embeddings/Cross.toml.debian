@@ -2,13 +2,13 @@
 image = "${CROSS_IMAGE}"
 pre-build = [
 	"apt-get update -y",
-	"apt-get install -y build-essential pkg-config libssl-dev",
+	"apt-get install -y build-essential pkg-config libssl-dev ca-certificates",
 ]
 
 [target.'aarch64-unknown-linux-gnu']
 image = "${CROSS_IMAGE}"
 pre-build = [
 	"apt-get update -y",
-	"apt-get install -y build-essential pkg-config libssl-dev",
+	"apt-get install -y build-essential pkg-config libssl-dev ca-certificates",
 ]
 
