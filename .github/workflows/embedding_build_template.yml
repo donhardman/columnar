@@ -63,12 +63,16 @@ jobs:
             [rhel7]="unknown-linux-gnu"
             [rhel8]="unknown-linux-gnu"
             [rhel9]="unknown-linux-gnu"
-            [macos]="stable-aarch64-apple-darwin"
+            [macos]="apple-darwin"
             [windows]="pc-windows-msvc"
           )
 
           if [[ -n "${target_map[${{ inputs.distr }}]}" ]]; then
-            echo "target=${{ inputs.arch }}-${target_map[${{ inputs.distr }}]}" >> $GITHUB_OUTPUT
+            target=${{ inputs.arch }}-${target_map[${{ inputs.distr }}]}"
+            if [[ "$target" =~ .*-apple-.* ]]; then
+              target="stable-$target"
+            fi
+            echo "target=${target}" >> $GITHUB_OUTPUT
           else
             echo "Unsupported distribution type: ${{ inputs.distr }}"
             exit 1
