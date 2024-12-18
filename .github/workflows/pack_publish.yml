@@ -20,16 +20,42 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  embedding_pack:
+  embedding_debian_pack:
     uses: ./.github/workflows/embedding_build_template.yml
     strategy:
       fail-fast: false
       matrix:
-        distr: [jammy, rhel9]
+        distr: [jammy]
         arch: [x86_64, aarch64]
     name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
     with:
       runner: ubuntu-22.04
+      distr: ${{ matrix.distr }}
+      arch: ${{ matrix.arch }}
+
+  embedding_rhel_x86_pack:
+    uses: ./.github/workflows/embedding_build_template.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        distr: [rhel9]
+        arch: [aarch64]
+    name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
+    with:
+      runner: ubuntu-22.04
+      distr: ${{ matrix.distr }}
+      arch: ${{ matrix.arch }}
+
+  embedding_rhel_aarch_pack:
+    uses: ./.github/workflows/embedding_build_template.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        distr: [rhel9]
+        arch: [aarch64]
+    name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
+    with:
+      runner: macos-12
       distr: ${{ matrix.distr }}
       arch: ${{ matrix.arch }}
 
