@@ -45,4 +45,6 @@ jobs:
       runner: macos-13 
       distr: ${{ matrix.distr }}
       arch: ${{ matrix.arch }}
+      setup: |
+        brew install bash
 
