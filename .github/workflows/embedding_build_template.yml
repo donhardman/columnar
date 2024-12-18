@@ -68,7 +68,7 @@ jobs:
           )
 
           if [[ -n "${target_map[${{ inputs.distr }}]}" ]]; then
-            target=${{ inputs.arch }}-${target_map[${{ inputs.distr }}]}"
+            target="${{ inputs.arch }}-${target_map[${{ inputs.distr }}]}"
             if [[ "$target" =~ .*-apple-.* ]]; then
               target="stable-$target"
             fi
