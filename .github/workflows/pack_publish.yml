@@ -47,7 +47,7 @@ jobs:
       arch: ${{ matrix.arch }}
       # We need newer bash for declare -A
       setup: |
-        brew install bash docker
+        brew install bash docker colima
         colima start
 
   embedding_windows_pack:
