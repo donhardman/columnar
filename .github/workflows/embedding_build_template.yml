@@ -48,7 +48,7 @@ jobs:
             [bookworm]="debian:bookworm"
             [rhel7]="oraclelinux:7"
             [rhel8]="oraclelinux:8"
-            [rhel9]="oraclelinux:9"
+            [rhel9]="rockylinux:9"
           )
 
           image=${image_map[${{ inputs.distr }}]}

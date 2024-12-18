@@ -1,17 +1,18 @@
-[target.'x86_64-unknown-linux-gnu']
+[target.x86_64-unknown-linux-gnu]
 image = "${CROSS_IMAGE}"
 pre-build = [
-	"yum update -y",
+	"yum install epel-release",
+	"yum config-manager --set-enabled crb",
 	"yum groupinstall -y 'Development Tools'",
 ]
 
-[target.'aarch64-unknown-linux-gnu']
+[target.aarch64-unknown-linux-gnu]
 image = "${CROSS_IMAGE}"
 pre-build = [
-	"yum update -y",
+	"yum install epel-release",
+	"yum config-manager --set-enabled crb",
 	"yum groupinstall -y 'Development Tools'",
-	"yum install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu g++aarch64-linux-gnu -y",
+	"yum install gcc-aarch64-linux-gnu gcc-c++-aarch64-linux-gnu binutils-aarch64-linux-gnu -y",
 ]
 xargo = false
-linker = "aarch64-linux-gnu-gcc"
 
