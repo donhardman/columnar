@@ -38,6 +38,7 @@ jobs:
 
       - name: Check distribution type
         id: vars
+        shell: bash
         run: |
           declare -A image_map=(
             [bionic]="ubuntu:bionic"

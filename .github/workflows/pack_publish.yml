@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         distr: [jammy, rhel9]
-        arch: [x86]
+        arch: [x86_64]
     name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
     with:
       runner: ubuntu-22.04
