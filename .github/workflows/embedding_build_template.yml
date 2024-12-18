@@ -69,9 +69,6 @@ jobs:
 
           if [[ -n "${target_map[${{ inputs.distr }}]}" ]]; then
             target="${{ inputs.arch }}-${target_map[${{ inputs.distr }}]}"
-            if [[ "$target" =~ .*-apple-.* ]]; then
-              target="stable-$target"
-            fi
             echo "target=${target}" >> $GITHUB_OUTPUT
           else
             echo "Unsupported distribution type: ${{ inputs.distr }}"
