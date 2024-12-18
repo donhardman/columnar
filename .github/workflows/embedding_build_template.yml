@@ -63,7 +63,7 @@ jobs:
             [rhel7]="unknown-linux-gnu"
             [rhel8]="unknown-linux-gnu"
             [rhel9]="unknown-linux-gnu"
-            [macos]="apple-darwin-gcc"
+            [macos]="stable-aarch64-apple-darwin"
             [windows]="pc-windows-msvc"
           )
 
