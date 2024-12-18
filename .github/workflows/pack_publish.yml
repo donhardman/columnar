@@ -48,7 +48,7 @@ jobs:
       # We need newer bash for declare -A
       setup: |
         brew install bash docker colima
-        colima start
+        colima start --vm-type vz
 
   embedding_windows_pack:
     uses: ./.github/workflows/embedding_build_template.yml
