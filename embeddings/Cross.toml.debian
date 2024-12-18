@@ -9,8 +9,10 @@ pre-build = [
 image = "${CROSS_IMAGE}"
 pre-build = [
 	"apt-get update -y",
-	"apt-get install -y crossbuild-essential-arm64 ca-certificates",
-	"apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-arm64-cross linux-libc-dev-arm64-cross",
+	"apt-get install -y build-essential ca-certificates",
+	# We build on macos arm now
+	# "apt-get install -y crossbuild-essential-arm64 ca-certificates",
+	# "apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-arm64-cross linux-libc-dev-arm64-cross",
 ]
 xargo = false
 
