@@ -99,12 +99,16 @@ jobs:
 
       - name: Build
         uses: actions-rs/cargo@v1
+        env: 
+          CC: ${{ inputs.distr == 'macos' && 'o64-clang' || ''}}
+          CXX: ${{ inputs.distr == 'macos' && 'o64-clang++' || ''}}
         with:
           use-cross: true
           command: build
           args: ${{ steps.params.outputs.args }}
       - run: | 
           mkdir build
+          ls -la ./embeddings/target/release/*
           find ./embeddings/target -type f \( -name "libmanticoresearch*.a" -o -name "libmanticoresearch*.lib" \) -ls -exec mv {} ./build \;
 
       - name: Upload build artifacts
