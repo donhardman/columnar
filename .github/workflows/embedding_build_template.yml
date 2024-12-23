@@ -52,7 +52,7 @@ jobs:
             exit 1
           fi
 
-          lib_dir="./embeddings/target/${{steps.vars.outputs.target}}/release"
+          lib_dir="./embeddings/target/${target}/release"
           echo "lib_dir=${lib_dir}" >> $GITHUB_OUTPUT
 
       - uses: actions/checkout@v3
