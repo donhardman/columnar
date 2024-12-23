@@ -78,6 +78,7 @@ jobs:
             export CXX=o64-clang++
           fi
           docker run --rm \
+            -u $(id -u):$(id -g) \
             -e CC -e CXX \
             -v $(pwd):/src \
             -w /src \
