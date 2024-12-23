@@ -73,7 +73,7 @@ jobs:
       - name: Build
         if: ${{ inputs.distr == 'linux' || inputs.distr == 'macos' }}
         run: |
-          if [[ "${{ inputs.distr }}" == "macos" && "${{ inputs.arch }}" == "aarch64" ]]; then
+          if [[ "${{ inputs.distr }}" == "macos" ]]; then
             export CC=o64-clang
             export CXX=o64-clang++
           fi
