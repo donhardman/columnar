@@ -84,15 +84,11 @@ jobs:
             joseluisq/rust-linux-darwin-builder:1.83.0 \
             sh -c "cargo build ${{ steps.params.outputs.args }}"
 
-      - uses: actions-rs/toolchain@v1
-        if: ${{ inputs.distr == 'windows' }}
       - name: Build
         if: ${{ inputs.distr == 'windows' }}
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: build
-          args: ${{ steps.params.outputs.args }}
+        run: |
+          rustup target add ${{ steps.vars.outputs.target }}
+          cargo build ${{ steps.params.outputs.args }}
 
       - run: | 
           mkdir build
