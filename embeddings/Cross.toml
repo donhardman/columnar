@@ -10,3 +10,7 @@ image = "joseluisq/rust-linux-darwin-builder:1.83.0"
 [target.aarch64-apple-darwin]
 image = "joseluisq/rust-linux-darwin-builder:1.83.0"
 
+[target.aarch64-apple-darwin.env]
+CC = o64-clang
+CXX = o64-clang++
+
