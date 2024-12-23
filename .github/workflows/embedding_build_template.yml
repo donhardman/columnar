@@ -31,7 +31,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Set up Docker
-        if: ${{ startsWith(inputs.runner, 'macos') }}
+        if: ${{ startsWith(inputs.runner, 'linux') }}
         uses: docker/setup-buildx-action@v3
       - name: Setup
         if: ${{ inputs.setup }}
@@ -42,30 +42,15 @@ jobs:
         id: vars
         run: |
           declare -A image_map=(
-            [bionic]="ubuntu:bionic"
-            [focal]="ubuntu:focal"
-            [jammy]="ubuntu:jammy"
-            [buster]="debian:buster"
-            [bullseye]="debian:bullseye"
-            [bookworm]="debian:bookworm"
-            [rhel7]="oraclelinux:7"
-            [rhel8]="oraclelinux:8"
-            [rhel9]="rockylinux:9"
+            [linux]="joseluisq/rust-linux-darwin-builder:1.83.0"
+            [macos]="joseluisq/rust-linux-darwin-builder:1.83.0"
           )
 
           image=${image_map[${{ inputs.distr }}]}
           echo "image=${image}" >> $GITHUB_OUTPUT
 
           declare -A target_map=(
-            [bionic]="unknown-linux-gnu"
-            [focal]="unknown-linux-gnu"
-            [jammy]="unknown-linux-gnu"
-            [buster]="unknown-linux-gnu"
-            [bullseye]="unknown-linux-gnu"
-            [bookworm]="unknown-linux-gnu"
-            [rhel7]="unknown-linux-gnu"
-            [rhel8]="unknown-linux-gnu"
-            [rhel9]="unknown-linux-gnu"
+            [linux]="unknown-linux-musl"
             [macos]="apple-darwin"
             [windows]="pc-windows-msvc"
           )
@@ -114,18 +99,13 @@ jobs:
 
       - name: Build
         uses: actions-rs/cargo@v1
-        # env:
-        #   CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: ${{ inputs.arch == 'aarch64' && 'aarch64-linux-gnu-gcc' || ''}}
-        #   CC_aarch64_unknown_linux_gnu: ${{ inputs.arch == 'aarch64' && 'aarch64-linux-gnu-gcc' || ''}}
-        #   CXX_aarch64_unknown_linux_gnu: ${{ inputs.arch == 'aarch64' && 'aarch64-linux-gnu-g++' || ''}}
         with:
           use-cross: true
           command: build
           args: ${{ steps.params.outputs.args }}
       - run: | 
           mkdir build
-          ls -lt ./embeddings/target/*/*/libmanticoresearch*.so
-          mv ./embeddings/target/*/*/libmanticoresearch*.so ./build
+          find ./embeddings/target -type f \( -name "libmanticoresearch*.a" -o -name "libmanticoresearch*.lib" \) -ls -exec mv {} ./build \;
 
       - name: Upload build artifacts
         if: success()

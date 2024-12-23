@@ -20,34 +20,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  embedding_linux_x86_pack:
+  embedding_linux_osx_pack:
     uses: ./.github/workflows/embedding_build_template.yml
     strategy:
       fail-fast: false
       matrix:
-        distr: [jammy, rhel9]
-        arch: [x86_64]
+        distr: [linux, macos]
+        arch: [x86_64, aarch64]
     name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
     with:
       runner: ubuntu-22.04
       distr: ${{ matrix.distr }}
       arch: ${{ matrix.arch }}
-
-  embedding_linux_aarch_pack:
-    uses: ./.github/workflows/embedding_build_template.yml
-    strategy:
-      fail-fast: false
-      matrix:
-        distr: [jammy, rhel9]
-        arch: [aarch64]
-    name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
-    with:
-      runner: macos-14 
-      distr: ${{ matrix.distr }}
-      arch: ${{ matrix.arch }}
-      # We need newer bash for declare -A
-      setup: |
-        brew install bash
 
   embedding_windows_pack:
     uses: ./.github/workflows/embedding_build_template.yml
@@ -61,19 +45,3 @@ jobs:
       runner: windows-2022
       distr: ${{ matrix.distr }}
       arch: ${{ matrix.arch }}
-
-  embedding_osx_pack:
-    uses: ./.github/workflows/embedding_build_template.yml
-    strategy:
-      fail-fast: false
-      matrix:
-        distr: [macos]
-        arch: [aarch64]
-    name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
-    with:
-      runner: macos-14
-      distr: ${{ matrix.distr }}
-      arch: ${{ matrix.arch }}
-      # We need newer bash for declare -A
-      setup: |
-        brew install bash
