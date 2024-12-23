@@ -41,14 +41,6 @@ jobs:
       - name: Check distribution type
         id: vars
         run: |
-          declare -A image_map=(
-            [linux]="joseluisq/rust-linux-darwin-builder:1.83.0"
-            [macos]="joseluisq/rust-linux-darwin-builder:1.83.0"
-          )
-
-          image=${image_map[${{ inputs.distr }}]}
-          echo "image=${image}" >> $GITHUB_OUTPUT
-
           declare -A target_map=(
             [linux]="unknown-linux-musl"
             [macos]="apple-darwin"
@@ -89,12 +81,6 @@ jobs:
             platform=macos
           elif [[ "${{ inputs.distr }}" =~ windows.* ]]; then
             platform=windows
-          fi
-
-          cross_template="./embeddings/Cross.toml.${platform}"
-          if [[ -f $cross_template ]]; then
-            export CROSS_IMAGE="${{ steps.vars.outputs.image }}"
-            envsubst < $cross_template > "./embeddings/Cross.toml"
           fi
 
       - name: Build
