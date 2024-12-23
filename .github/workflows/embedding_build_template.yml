@@ -94,7 +94,7 @@ jobs:
       - run: | 
           mkdir build
           ls -la ./embeddings/target/${{steps.vars.outputs.target}}/release/*
-          find ./embeddings/target/${{steps.vars.outputs.target}} -type f \( -name "libmanticoresearch*.a" -o -name "manticoresearch*.lib" \) -ls -exec mv {} ./build \;
+          find ./embeddings/target/${{steps.vars.outputs.target}}/release -type f \( -name "libmanticoresearch*.a" -o -name "manticoresearch*.lib" \) -ls -exec mv {} ./build \;
 
       - name: Upload build artifacts
         if: success()
