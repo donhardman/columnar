@@ -78,7 +78,6 @@ jobs:
             export CXX=o64-clang++
           fi
           docker run --rm \
-            -u $(id -u):$(id -g) \
             -e CC -e CXX \
             -v $(pwd):/src \
             -w /src \
@@ -93,8 +92,10 @@ jobs:
 
       - run: | 
           mkdir build
-          ls -la ./embeddings/target/${{steps.vars.outputs.target}}/release/*
-          find ./embeddings/target/${{steps.vars.outputs.target}}/release -type f \( -name "libmanticoresearch*.a" -o -name "manticoresearch*.lib" \) -ls -exec mv {} ./build \;
+          lib_dir="./embeddings/target/${{steps.vars.outputs.target}}/release"
+          ls -la $lib_dir/*
+          sudo chown -hR $(id -u):$(id -g) $lib_dir
+          find $lib_dir -type f \( -name "libmanticoresearch*.a" -o -name "manticoresearch*.lib" \) -ls -exec mv {} ./build \;
 
       - name: Upload build artifacts
         if: success()
