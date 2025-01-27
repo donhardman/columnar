@@ -38,19 +38,22 @@ jobs:
       - name: Check distribution type
         id: vars
         run: |
-          declare -A target_map=(
-            [linux]="unknown-linux-gnu"
-            [macos]="apple-darwin"
-            [windows]="pc-windows-msvc"
-          )
-
-          if [[ -n "${target_map[${{ inputs.distr }}]}" ]]; then
-            target="${{ inputs.arch }}-${target_map[${{ inputs.distr }}]}"
-            echo "target=${target}" >> $GITHUB_OUTPUT
-          else
-            echo "Unsupported distribution type: ${{ inputs.distr }}"
-            exit 1
-          fi
+          case ${{ inputs.distr }} in
+            linux)
+              target="unknown-linux-gnu"
+              ;;
+            macos)
+              target="apple-darwin"
+              ;;
+            windows)
+              target="pc-windows-msvc"
+              ;;
+            *)
+              echo "Unsupported distribution type: ${{ inputs.distr }}"
+              exit 1
+              ;;
+          esac
+          echo "target=${target}" >> $GITHUB_OUTPUT
 
           lib_dir="./embeddings/target/${target}/release"
           echo "lib_dir=${lib_dir}" >> $GITHUB_OUTPUT
