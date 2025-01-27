@@ -34,12 +34,3 @@ codegen-units = 1
 lto = true
 strip = "debuginfo"
 
-[profile.release.target.'cfg(target_arch = "aarch64-apple-darwin")']
-strip-command = "aarch64-apple-darwin22.4-strip-apple-darwin22.4-strip"
-
-[profile.release.target.'cfg(target_arch = "x86_64-apple-darwin")']
-strip-command = "x86_64-apple-darwin22.4-strip"
-
-[env]
-RUSTFLAGS = "-C target-feature=+crt-static"
-

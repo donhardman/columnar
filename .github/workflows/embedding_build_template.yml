@@ -79,6 +79,14 @@ jobs:
           if [[ "${{ inputs.distr }}" == "macos" ]]; then
             export CC=o64-clang
             export CXX=o64-clang++
+            if [[ "${{ inputs.arch }}" == "aarch64" ]]; then
+              export STRIP="aarch64-apple-darwin22.4-strip -x"
+            else 
+              export STRIP="x86_64-apple-darwin22.4-strip -x"
+            fi
+
+          if [[ "${{ inputs.distr }}" == "linux" ]]; then
+            export RUSTFLAGS = "-C target-feature=+crt-static"
           fi
           docker run --rm \
             -e CC -e CXX \
