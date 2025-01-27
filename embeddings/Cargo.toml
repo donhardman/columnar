@@ -20,6 +20,9 @@ rayon = "1.10.0"
 [build-dependencies]
 cbindgen = "0.26.0"
 
+[dev-dependencies]
+approx = "0.5.1"
+
 # Example of customizing the library in Cargo.toml.
 [lib]
 name = "manticoresearch_text_embeddings"
@@ -32,11 +35,11 @@ lto = true
 strip = "debuginfo"
 
 [profile.release.target.'cfg(target_arch = "aarch64-apple-darwin")']
-strip = false
+strip-command = "aarch64-apple-darwin22.4-strip-apple-darwin22.4-strip"
 
 [profile.release.target.'cfg(target_arch = "x86_64-apple-darwin")']
-strip = false
+strip-command = "x86_64-apple-darwin22.4-strip"
 
-[dev-dependencies]
-approx = "0.5.1"
+[env]
+RUSTFLAGS = "-C target-feature=+crt-static"
 
