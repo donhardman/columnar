@@ -42,7 +42,7 @@ jobs:
         arch: [x86_64, aarch64]
     name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
     with:
-      runner: macos-13
+      runner: macos-14
       distr: ${{ matrix.distr }}
       arch: ${{ matrix.arch }}
 
