@@ -26,7 +26,7 @@ approx = "0.5.1"
 # Example of customizing the library in Cargo.toml.
 [lib]
 name = "manticoresearch_text_embeddings"
-crate-type = ["dylib"]
+crate-type = ["cdylib"]
 
 [profile.release]
 opt-level = "z"
