@@ -84,6 +84,7 @@ jobs:
             else 
               export STRIP="x86_64-apple-darwin22.4-strip -x"
             fi
+          fi
 
           if [[ "${{ inputs.distr }}" == "linux" ]]; then
             export RUSTFLAGS = "-C target-feature=+crt-static"
