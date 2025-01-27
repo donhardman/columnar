@@ -87,7 +87,7 @@ jobs:
           fi
 
           if [[ "${{ inputs.distr }}" == "linux" ]]; then
-            export RUSTFLAGS = "-C target-feature=+crt-static"
+            export RUSTFLAGS="-C target-feature=+crt-static"
           fi
           docker run --rm \
             -e CC -e CXX \
