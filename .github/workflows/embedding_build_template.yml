@@ -79,6 +79,11 @@ jobs:
           if [[ "${{ inputs.distr }}" == "macos" ]]; then
             export CC=o64-clang
             export CXX=o64-clang++
+            if [[ "${{ inputs.arch }}" == "x86_64" ]]; then
+              export STRIP="x86_64-apple-darwin22.4-strip -x"
+            else 
+              export STRIP="aarch64-apple-darwin22.4-strip -x"
+            fi
           fi
 
           if [[ "${{ inputs.distr }}" == "linux" ]]; then
@@ -86,7 +91,7 @@ jobs:
           fi
 
           docker run --rm \
-            -e CC -e CXX -e RUSTFLAGS \
+            -e CC -e CXX -e RUSTFLAGS STRIP \
             -v $(pwd):/src \
             -w /src \
             joseluisq/rust-linux-darwin-builder:1.83.0 \
