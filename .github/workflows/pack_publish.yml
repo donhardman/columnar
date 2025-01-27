@@ -25,11 +25,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distr: [linux, macos]
+        distr: [linux]
         arch: [x86_64, aarch64]
     name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
     with:
       runner: ubuntu-22.04
+      distr: ${{ matrix.distr }}
+      arch: ${{ matrix.arch }}
+
+  embeddings_osx_pack:
+    uses: ./.github/workflows/embedding_build_template.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        distr: [macos]
+        arch: [x86_64, aarch64]
+    name: ${{ matrix.distr }} ${{ matrix.arch }} embedding packing
+    with:
+      runner: macos-12
       distr: ${{ matrix.distr }}
       arch: ${{ matrix.arch }}
 

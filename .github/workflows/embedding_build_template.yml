@@ -39,7 +39,7 @@ jobs:
         id: vars
         run: |
           declare -A target_map=(
-            [linux]="unknown-linux-musl"
+            [linux]="unknown-linux-gnu"
             [macos]="apple-darwin"
             [windows]="pc-windows-msvc"
           )
