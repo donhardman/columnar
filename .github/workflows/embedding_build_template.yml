@@ -99,7 +99,7 @@ jobs:
           mkdir build
           lib_dir="${{ steps.vars.outputs.lib_dir }}"
           ls -la $lib_dir/*
-          find $lib_dir -type f \( -name "libmanticoresearch*.so" -o -name "manticoresearch*.dylib" \) -ls -exec mv {} ./build \;
+          find $lib_dir -type f \( -name "libmanticoresearch*.so" -o -name "manticoresearch*.dylib" -o -name "manticoresearch*.dll" \) -exec cp {} build/ \;
 
       - name: Upload build artifacts
         if: success()
