@@ -73,18 +73,6 @@ jobs:
           )
           echo "args=${args[@]}" >> $GITHUB_OUTPUT
 
-      - name: Build for MacOS
-        if: ${{ inputs.distr == 'macos' }}
-        run: |
-          docker run --rm \
-            -e CC=o64-clang -e CXX=o64-clang++ \
-            -v $(pwd):/src \
-            -w /src \
-            joseluisq/rust-linux-darwin-builder:1.83.0 \
-            sh -c "cargo build ${{ steps.params.outputs.args }}"
-
-          sudo chown -hR $(id -u):$(id -g) ${{ steps.vars.outputs.lib_dir }}
-
       - name: Build for Linux
         if: ${{ inputs.distr == 'linux' }}
         env:
@@ -103,12 +91,14 @@ jobs:
             -e CXX_aarch64_unknown_linux_gnu \
             -v $(pwd):/src \
             -w /src \
+            --entrypoint bash \
             unixgeek2/rust-min-libc:2025-01-17 \
-            sh -c "apt-get update -y && apt-get install -y gcc g++ && ${extra} cargo build ${{ steps.params.outputs.args }}"
+            -c "apt-get update -y && apt-get install -y gcc g++ && ${extra} cargo build ${{ steps.params.outputs.args }}"
           sudo chown -hR $(id -u):$(id -g) ${{ steps.vars.outputs.lib_dir }}
 
-      - name: Build for Windows
-        if: ${{ inputs.distr == 'windows' }}
+
+      - name: Build native 
+        if: ${{ inputs.distr == 'windows' || inputs.distr == 'macos' }}
         run: |
           rustup target add ${{ steps.vars.outputs.target }}
           cargo build ${{ steps.params.outputs.args }}
