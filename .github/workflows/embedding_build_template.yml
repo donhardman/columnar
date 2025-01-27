@@ -53,7 +53,7 @@ jobs:
               exit 1
               ;;
           esac
-          echo "target=${target}" >> $GITHUB_OUTPUT
+          echo "target=${{ inputs.arch }}-${target}" >> $GITHUB_OUTPUT
 
           lib_dir="./embeddings/target/${target}/release"
           echo "lib_dir=${lib_dir}" >> $GITHUB_OUTPUT
