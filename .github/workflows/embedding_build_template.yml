@@ -91,6 +91,7 @@ jobs:
             -e CXX_aarch64_unknown_linux_gnu \
             -v $(pwd):/src \
             -w /src \
+            -u root \
             --entrypoint bash \
             unixgeek2/rust-min-libc:2025-01-17 \
             -c "apt-get update -y && apt-get install -y gcc g++ && ${extra} cargo build ${{ steps.params.outputs.args }}"
