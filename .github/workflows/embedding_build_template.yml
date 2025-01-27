@@ -91,7 +91,7 @@ jobs:
           fi
 
           docker run --rm \
-            -e CC -e CXX -e RUSTFLAGS STRIP \
+            -e CC -e CXX -e RUSTFLAGS -e STRIP \
             -v $(pwd):/src \
             -w /src \
             joseluisq/rust-linux-darwin-builder:1.83.0 \
