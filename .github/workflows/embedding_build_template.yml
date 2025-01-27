@@ -81,8 +81,12 @@ jobs:
             export CXX=o64-clang++
           fi
 
+          if [[ "${{ inputs.distr }}" == "linux" ]]; then
+            export RUSTFLAGS="-C target-feature=-crt-static"
+          fi
+
           docker run --rm \
-            -e CC -e CXX \
+            -e CC -e CXX -e RUSTFLAGS \
             -v $(pwd):/src \
             -w /src \
             joseluisq/rust-linux-darwin-builder:1.83.0 \
